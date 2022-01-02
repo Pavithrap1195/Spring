@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+         http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<!-- Annotation based configuration -->
+	<context:component-scan
+	base-package="com.xworkz.wallet">
+</context:component-scan>
+		 
+<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+<property name="location" value="photo.properties"></property>
+</bean>
+
+<!-- <bean class="com.xworkz.wallet.Material"></bean>
+<bean class="com.xworkz.wallet.Money"></bean>
+<bean class="com.xworkz.wallet.ATMCard"></bean>
+<bean class=""></bean>
+
+
+ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--XML Based configuration -->
+<!--
+ <?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+ -->
+	<!--Process of referring bean is known as dependency injection -->
+<!-- 
+	<bean class="com.xworkz.wallet.Wallet" id="wallet" scope="prototype">
+		<constructor-arg name="color" value="Black"></constructor-arg>
+		<constructor-arg name="brand" value="Puma"></constructor-arg>
+		<constructor-arg name="material" ref="material"></constructor-arg>For referring an ID which have has a relationship
+		<constructor-arg name="price" value="250.00"></constructor-arg>
+		<constructor-arg name="money" ref="money"></constructor-arg>
+		<constructor-arg name="atmCard" ref="atmCard"></constructor-arg>
+		<constructor-arg name="photo" ref="photo"></constructor-arg>
+	</bean>
+
+	<bean class="com.xworkz.wallet.Material" id="material"></bean>
+
+	<bean class="com.xworkz.wallet.Money" id="money"></bean>
+
+	<bean class="com.xworkz.wallet.ATMCard" id="atmCard"></bean>
+
+	<bean class="com.xworkz.wallet.Photo" id="photo">  
+	<property name="size" value="${size}"></property>
+	<property name="price" value="${price}"></property>
+	
+	</bean>
+	
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<property name="location" value="photo.properties"></property>
+	</bean>
+ -->
+
+</beans>
