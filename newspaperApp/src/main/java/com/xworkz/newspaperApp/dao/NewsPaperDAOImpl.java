@@ -41,17 +41,52 @@ public class NewsPaperDAOImpl implements NewsPaperDAO {
 	}
 
 	@Override
-	public boolean getNewsPaperEntityByName(String newsPaperName) {
+	public NewsPaperEntity getNewsPaperEntityByName(String newsPaperName) {
 		System.out.println("Invoked getNewsPaperName()");
-		Session session=null;
-//		boolean searched=false;
+		Session session = null;
 		try {
 			session = factory.openSession();
-			Query query = session.getNamedQuery("getNewsPaperEntityByName");
+			Query query = session.getNamedQuery("NewsPaperEntity.getNewsPaperEntityByName");
 			query.setParameter("Name", newsPaperName);
-			Object result = query.uniqueResult();
-			System.out.println("NewsPaperDetails:- "+result);
-			return true;
+			NewsPaperEntity entity = (NewsPaperEntity) query.uniqueResult();
+			System.out.println("NewsPaperDetails:- " + entity);
+			if (entity != null) {
+				return entity;
+			} else {
+				System.out.println("newsPaperName not fouund");
+				return null;
+			}
+		} catch (HibernateException e) {
+
+		} finally {
+			if (session != null) {
+				session.close();
+				System.out.println("Session is closed");
+			} else {
+				System.out.println("Session is not closed");
+			}
+		}
+
+		return null;
+	}
+	
+	@Override
+	public NewsPaperEntity getNewsPaperEntityByLanguage(String language) {
+		System.out.println("Invoked getNewsPaperEntityByLanguage()");
+		Session session=null;
+		try {
+			
+			session = factory.openSession();
+			Query query = session.getNamedQuery("getNewsPaperEntityByLanguage");
+			query.setParameter("LANGUAGE", language);
+			NewsPaperEntity entity =(NewsPaperEntity) query.uniqueResult();
+			System.out.println("NewsPaperDetails-: "+entity);
+			if(entity!=null) {
+				return entity;
+			}else {
+				System.out.println("Language not found");
+				return null;
+			}
 		}catch(HibernateException e) {
 			
 		}finally {
@@ -62,7 +97,7 @@ public class NewsPaperDAOImpl implements NewsPaperDAO {
 				System.out.println("Session is not closed");
 			}
 		}
-		return false;
+		
+		return null;
 	}
-
 }

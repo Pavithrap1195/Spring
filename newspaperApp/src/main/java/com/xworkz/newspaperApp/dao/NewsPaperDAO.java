@@ -6,6 +6,8 @@ public interface NewsPaperDAO {
 
 	boolean saveNewsPaperEntity(NewsPaperEntity newsPaperEntity);
 
-	boolean getNewsPaperEntityByName(String newsPaperName);
+	NewsPaperEntity getNewsPaperEntityByName(String newsPaperName);
+	
+	NewsPaperEntity getNewsPaperEntityByLanguage(String language);
 
 }

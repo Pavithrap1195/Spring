@@ -58,9 +58,9 @@ public class NewsPaperServiceImpl implements NewsPaperService {
 		NewsPaperEntity newsPaperEntity = new NewsPaperEntity();
 		BeanUtils.copyProperties(newsPaperDTO, newsPaperEntity);
 		boolean result = this.newsPaperDAO.saveNewsPaperEntity(newsPaperEntity);
-		
+
 		return result;
-		
+
 		/*
 		 * newsPaperEntity.setNewsPaperName(newsPaperDTO.getNewsPaperName());
 		 * newsPaperEntity.setPrice(newsPaperDTO.getPrice());
@@ -68,15 +68,64 @@ public class NewsPaperServiceImpl implements NewsPaperService {
 		 * newsPaperEntity.setNoOfPages(newsPaperDTO.getNoOfPages());
 		 */
 	}
-	
+
 	@Override
-	public boolean getNewsPaperName(String newsPaperName) {
-		NewsPaperEntity paperEntity = new NewsPaperEntity();
-		BeanUtils.copyProperties(newsPaperName, paperEntity);
-		boolean result1 = this.newsPaperDAO.getNewsPaperEntityByName(newsPaperName);
-		
-		return result1;
-		
-		
+	public boolean validateNewsPaperName(String newsPaperName) {
+
+		System.out.println("Invoked validateNewsPaperName()");
+		boolean flag = false;
+		if (!newsPaperName.isEmpty() && newsPaperName != null) {
+			flag = true;
+			return flag;
+		} else {
+			flag = false;
+			System.out.println("Invalid NewsPaperName");
+			return flag;
+		}
+
+	}
+
+	@Override
+	public NewsPaperDTO getNewsPaperDTO(String newsPaperName) {
+		System.out.println("Invoked getNewsPaperDTO()");
+		NewsPaperEntity newsPaperEntity = this.newsPaperDAO.getNewsPaperEntityByName(newsPaperName);
+
+		if (newsPaperEntity != null) {
+			NewsPaperDTO newsPaperDTO = new NewsPaperDTO();
+			BeanUtils.copyProperties(newsPaperEntity, newsPaperDTO);
+			return newsPaperDTO;
+		} else {
+			return null;
+		}
+	}
+
+	@Override
+	public boolean validateNewsPaperLanguage(String language) {
+
+		System.out.println("Invoked validateNewsPaperLanguage()");
+		boolean flag = false;
+		if (!language.isEmpty() && language != null) {
+			flag = true;
+			return flag;
+		} else {
+			flag = false;
+			System.out.println("Invalid Language");
+			return flag;
+		}
+
+	}
+
+	@Override
+	public NewsPaperDTO getNewsPaperDTOByLanguage(String language) {
+		System.out.println("Invoked getNewsPaperDTOByLanguage()");
+		NewsPaperEntity newsPaperEntity = this.newsPaperDAO.getNewsPaperEntityByLanguage(language);
+		if (newsPaperEntity != null) {
+			NewsPaperDTO dto = new NewsPaperDTO();
+			BeanUtils.copyProperties(newsPaperEntity, dto);
+			return dto;
+		} else {
+			return null;
+		}
+
 	}
 }

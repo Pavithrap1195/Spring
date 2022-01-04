@@ -35,18 +35,63 @@ public class NewsPaperController {
 		} else {
 			model.addAttribute("validateMessage", "Invalid Data try again");
 		}
+
+		/*
+		 * else if (newsPaperDTO.getPrice() == 0) { model.addAttribute("validatePrice",
+		 * "Invalid Price"); } if (newsPaperDTO.getLanguage() == null &&
+		 * newsPaperDTO.getLanguage().isEmpty()) {
+		 * model.addAttribute("validateLanguage", "Language cannot be empty or null"); }
+		 * if (newsPaperDTO.getNoOfPages() == 0) {
+		 * model.addAttribute("validateNoOfPages", "Invalid No Of Pages"); }
+		 */
+
 		return "/welcome.jsp";
 	}
 
 	@RequestMapping("/searchNewsPaper.do")
-	public String searchNewsPaper(@RequestParam(value="newsPaperName",required=false) String newsPaperName) {
+	public String searchNewsPaper(@RequestParam(value = "searchNewsPaper", required = true) String searchNewsPaper,
+			Model model) {
 		System.out.println("Invoked searchNewsPaper()");
-		
-		if(this.newsPaperService.getNewsPaperName(newsPaperName)) {
-			System.out.println("Here is your NewsPaper Details");
-	}else {
-		System.out.println("Not present in data table");
-	}
+
+		if (this.newsPaperService.validateNewsPaperName(searchNewsPaper)) {
+			NewsPaperDTO newsPaperDTO = this.newsPaperService.getNewsPaperDTO(searchNewsPaper);
+			if (newsPaperDTO != null) {
+				model.addAttribute("NEWSPAPERNAME", newsPaperDTO.getNewsPaperName());
+				model.addAttribute("PRICE", newsPaperDTO.getPrice());
+				model.addAttribute("LANGUAGE", newsPaperDTO.getLanguage());
+				model.addAttribute("NOOFPAGES", newsPaperDTO.getNoOfPages());
+				return "/welcome.jsp";
+			} else {
+				model.addAttribute("NOTFOUND", " NewsPaper Details not found");
+				return "/welcome.jsp";
+			}
+
+		} else {
+			model.addAttribute("searchValidationMessage", "Invalid newspaper,try again");
+		}
 		return "/welcome.jsp";
-}
+	}
+
+	@RequestMapping("/searchNewsPaper.do")
+	public String onCLickSearchByLanguage(@RequestParam String language, Model model) {
+		System.out.println("Invoked onCLickSearch()");
+		if (this.newsPaperService.validateNewsPaperLanguage(language)) {
+			NewsPaperDTO byLanguage = this.newsPaperService.getNewsPaperDTOByLanguage(language);
+			if (byLanguage != null) {
+				model.addAttribute("NEWSPAPERNAME", byLanguage.getNewsPaperName());
+				model.addAttribute("PRICE", byLanguage.getPrice());
+				model.addAttribute("LANGUAGE", byLanguage.getLanguage());
+				model.addAttribute("NOOFPAGES", byLanguage.getNoOfPages());
+				return "/welcome.jsp";
+			} else {
+				model.addAttribute("NOTFOUND", " NewsPaper Details not found");
+				return "/welcome.jsp";
+			}
+
+		} else {
+			model.addAttribute("searchValidationMessage", "Invalid newspaper,try again");
+		}
+		return "/welcome.jsp";
+	}
+
 }

@@ -8,6 +8,12 @@ public interface NewsPaperService {
 
 	boolean saveNewsPaperDTO(NewsPaperDTO newsPaperDTO);
 	
-	boolean getNewsPaperName(String newsPaperName);
+	boolean validateNewsPaperName(String newsPaperName);
+	
+	NewsPaperDTO getNewsPaperDTO(String newsPaperName);
+	
+	boolean validateNewsPaperLanguage(String language);
+	
+	NewsPaperDTO getNewsPaperDTOByLanguage(String language);
 	
 }
