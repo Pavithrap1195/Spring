@@ -8,6 +8,6 @@ public interface NewsPaperDAO {
 
 	NewsPaperEntity getNewsPaperEntityByName(String newsPaperName);
 	
-	NewsPaperEntity getNewsPaperEntityByLanguage(String language);
+//	NewsPaperEntity getNewsPaperEntityByLanguage(String language);
 
 }

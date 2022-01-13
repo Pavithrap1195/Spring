@@ -13,18 +13,23 @@
 	<form action="submitnewspaper.do">
 		<pre>
 	Name:<input type="text" name="newsPaperName">
+	<p style="color: red" text-align="center">${validateNewsPaperName}</p>
+	
 	Price:<input type="text" name="price"> 
-	<%-- <h3>${ validatePrice}</h3>
- --%>	Language:<input type="text" name="language">
-	<%-- <h3>${validateLanguage }</h3> --%>
+		<p style="color: red" text-align="center">${validatePrice}</p>
+	
+	Language:<input type="text" name="language">
+		<p style="color: red" text-align="center">${validateLanguage}</p>
+	
 	Noofpages:<input type="text" name="noOfPages">
-	<%-- <h3>${validateNoOfPages }</h3> --%>
+		<p style="color: red" text-align="center">${validateNoOfpages}</p>
+	
 	
 	<input type="submit" value="Submit">
 	</pre>
 	</form>
 
-	<h1>${ searchValidationMessage}</h1>
+	<%-- <h1>${ searchValidationMessage}</h1>
 	<form action="searchNewsPaper.do">
 		<label>Search</label> <input type="text" name="searchNewsPaper">
 		<input type="submit" value="SearchNewsPaper">
@@ -35,6 +40,6 @@
 		<li>${PRICE}</li>
 		<li>${LANGUAGE}</li>
 		<li>${NOOFPAGES}</li>
-	</ol>
+	</ol> --%>
 </body>
 </html>

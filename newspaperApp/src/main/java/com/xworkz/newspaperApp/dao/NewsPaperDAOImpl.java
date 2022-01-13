@@ -6,10 +6,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.xworkz.newspaperApp.entity.NewsPaperEntity;
 
-@Component
+@Repository
 public class NewsPaperDAOImpl implements NewsPaperDAO {
 
 	@Autowired
@@ -70,7 +71,7 @@ public class NewsPaperDAOImpl implements NewsPaperDAO {
 		return null;
 	}
 	
-	@Override
+	/*@Override
 	public NewsPaperEntity getNewsPaperEntityByLanguage(String language) {
 		System.out.println("Invoked getNewsPaperEntityByLanguage()");
 		Session session=null;
@@ -99,5 +100,5 @@ public class NewsPaperDAOImpl implements NewsPaperDAO {
 		}
 		
 		return null;
-	}
+	}*/
 }

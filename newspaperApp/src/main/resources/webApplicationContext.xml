@@ -13,12 +13,15 @@
 
 	<bean
 		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<!--Data Source  -->
 		<property name="dataSource" ref="driverManagerDataSource"></property>
+		<!--Annotated class  -->
 		<property name="annotatedClasses">
 			<list>
 				<value>com.xworkz.newspaperApp.entity.NewsPaperEntity</value>
 			</list>
 		</property>
+		<!-- Hibernate Properties -->
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.show_sql">true</prop>

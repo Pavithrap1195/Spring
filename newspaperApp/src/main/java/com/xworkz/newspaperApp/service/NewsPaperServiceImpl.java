@@ -1,20 +1,25 @@
 package com.xworkz.newspaperApp.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.xworkz.newspaperApp.NewsPaperDTO;
 import com.xworkz.newspaperApp.dao.NewsPaperDAO;
 import com.xworkz.newspaperApp.entity.NewsPaperEntity;
 
-@Component
+@Service
 public class NewsPaperServiceImpl implements NewsPaperService {
 
 	@Autowired
 	private NewsPaperDAO newsPaperDAO;
 
 	public NewsPaperServiceImpl() {
+
 		System.out.println(this.getClass().getSimpleName() + " Created");
 	}
 
@@ -27,6 +32,7 @@ public class NewsPaperServiceImpl implements NewsPaperService {
 		} else {
 			flag = false;
 			System.out.println("Invalid NewsPaperName");
+			map.put("NEWSPAPERNAME", "Invalid NewsPaperName");
 			return flag;
 		}
 		if (newsPaperDTO.getLanguage() != null && !newsPaperDTO.getLanguage().isEmpty()) {
@@ -34,6 +40,8 @@ public class NewsPaperServiceImpl implements NewsPaperService {
 		} else {
 			flag = false;
 			System.out.println("Invalid language");
+			map.put("LANGUAGE", "Invalid language");
+
 			return flag;
 		}
 		if (newsPaperDTO.getPrice() > 0) {
@@ -41,6 +49,8 @@ public class NewsPaperServiceImpl implements NewsPaperService {
 		} else {
 			flag = false;
 			System.out.println("Invalid price");
+			map.put("PRICE", "Invalid price");
+
 			return flag;
 		}
 		if (newsPaperDTO.getNoOfPages() > 0) {
@@ -48,6 +58,8 @@ public class NewsPaperServiceImpl implements NewsPaperService {
 		} else {
 			flag = false;
 			System.out.println("Invalid noofpages");
+			map.put("NOOFPAGES", "Invalid noofpages");
+
 			return flag;
 		}
 		return flag;
@@ -99,33 +111,23 @@ public class NewsPaperServiceImpl implements NewsPaperService {
 		}
 	}
 
-	@Override
-	public boolean validateNewsPaperLanguage(String language) {
-
-		System.out.println("Invoked validateNewsPaperLanguage()");
-		boolean flag = false;
-		if (!language.isEmpty() && language != null) {
-			flag = true;
-			return flag;
-		} else {
-			flag = false;
-			System.out.println("Invalid Language");
-			return flag;
-		}
-
-	}
-
-	@Override
-	public NewsPaperDTO getNewsPaperDTOByLanguage(String language) {
-		System.out.println("Invoked getNewsPaperDTOByLanguage()");
-		NewsPaperEntity newsPaperEntity = this.newsPaperDAO.getNewsPaperEntityByLanguage(language);
-		if (newsPaperEntity != null) {
-			NewsPaperDTO dto = new NewsPaperDTO();
-			BeanUtils.copyProperties(newsPaperEntity, dto);
-			return dto;
-		} else {
-			return null;
-		}
-
-	}
+	/*
+	 * @Override public boolean validateNewsPaperLanguage(String language) {
+	 * 
+	 * System.out.println("Invoked validateNewsPaperLanguage()"); boolean flag =
+	 * false; if (!language.isEmpty() && language != null) { flag = true; return
+	 * flag; } else { flag = false; System.out.println("Invalid Language"); return
+	 * flag; }
+	 * 
+	 * }
+	 * 
+	 * @Override public NewsPaperDTO getNewsPaperDTOByLanguage(String language) {
+	 * System.out.println("Invoked getNewsPaperDTOByLanguage()"); NewsPaperEntity
+	 * newsPaperEntity = this.newsPaperDAO.getNewsPaperEntityByLanguage(language);
+	 * if (newsPaperEntity != null) { NewsPaperDTO dto = new NewsPaperDTO();
+	 * BeanUtils.copyProperties(newsPaperEntity, dto); return dto; } else { return
+	 * null; }
+	 * 
+	 * }
+	 */
 }
