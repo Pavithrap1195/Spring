@@ -1,9 +1,9 @@
 package com.xworkz.newspaperApp.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.xworkz.newspaperApp.NewsPaperDTO;
 import com.xworkz.newspaperApp.service.NewsPaperService;
 
+//Handler Methods
 @Controller
 @RequestMapping("/")
 public class NewsPaperController {
@@ -36,16 +37,14 @@ public class NewsPaperController {
 				model.addAttribute("validateMessage", "Could not save the data, Try Again..");
 			}
 		} else {
-			Map<String ,String > map=this.newsPaperService.map;
+			Map<String, String> map = this.newsPaperService.map;
 			model.addAttribute("validateNewsPaperName", map.get("NEWSPAPERNAME"));
 			model.addAttribute("validateLanguage", map.get("LANGUAGE"));
 			model.addAttribute("validatePrice", map.get("PRICE"));
 			model.addAttribute("validateNoOfPages", map.get("NOOFPAGES"));
 
-		
-		
 		}
-		return "/welcome.jsp";
+		return "/save.jsp";
 	}
 
 	@RequestMapping("/searchNewsPaper.do")
@@ -60,16 +59,46 @@ public class NewsPaperController {
 				model.addAttribute("PRICE", newsPaperDTO.getPrice());
 				model.addAttribute("LANGUAGE", newsPaperDTO.getLanguage());
 				model.addAttribute("NOOFPAGES", newsPaperDTO.getNoOfPages());
-				return "/welcome.jsp";
+				return "/search.jsp";
 			} else {
 				model.addAttribute("NOTFOUND", " NewsPaper Details not found");
-				return "/welcome.jsp";
+				return "/search.jsp";
 			}
 
 		} else {
 			model.addAttribute("searchValidationMessage", "Invalid newspaper,try again");
 		}
-		return "/welcome.jsp";
+		return "/search.jsp";
+	}
+
+	@RequestMapping("/getAllNewsPaper.do")
+	public String onGetAllNewsPaperClicked(Model model) {
+		System.out.println("Invoked onGetAllNewsPaperClicked()");
+		List<Object> allNewspaper = this.newsPaperService.getAllNewsPaper();
+		model.addAttribute("ListOfNewsPaper", allNewspaper);
+
+		return "/get.jsp";
+
+	}
+
+	@RequestMapping("/deleteNewsPaper.do")
+	public String onClickDeleteNewsPaper(@RequestParam(value = "newsPaperName", required = false) String newsPaperName,
+			Model model) {
+		System.out.println("Invoked onClickDeleteNewsPaper() ");
+//		if (this.newsPaperService.validateNewsPaperName(newsPaperName)) {
+			boolean isDeleted = this.newsPaperService.deleteNewsPaper(newsPaperName);
+			if (isDeleted) {
+				model.addAttribute("validateDeleteMessage", "NewsPaper details deleted successfully...Thank You");
+			} else {
+				model.addAttribute("validateDeleteMessage", "Could not delete the data, Try Again..");
+			}
+		/*} else {
+			Map<String, String> map = this.newsPaperService.map;
+			model.addAttribute("validateNewsPaperName", map.get("NEWSPAPERNAME"));
+		}
+*/
+		return "/delete.jsp";
+
 	}
 
 	/*

@@ -1,6 +1,8 @@
 package com.xworkz.newspaperApp.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.BeanUtils;
@@ -12,6 +14,7 @@ import com.xworkz.newspaperApp.NewsPaperDTO;
 import com.xworkz.newspaperApp.dao.NewsPaperDAO;
 import com.xworkz.newspaperApp.entity.NewsPaperEntity;
 
+//Business logic
 @Service
 public class NewsPaperServiceImpl implements NewsPaperService {
 
@@ -111,10 +114,34 @@ public class NewsPaperServiceImpl implements NewsPaperService {
 		}
 	}
 
+	@Override
+	public List<Object> getAllNewsPaper() {
+		System.out.println("Invoked getAllNewsPaper()");
+		List<Object> newsPaperContainer = null;
+		List<NewsPaperEntity> newsPaperEntityContainer = this.newsPaperDAO.getAllNewsPaper();
+		if (newsPaperEntityContainer != null) {
+			newsPaperContainer = new ArrayList<Object>(newsPaperEntityContainer);
+			return newsPaperContainer;
+
+		}
+
+		return newsPaperContainer;
+	}
+
+	@Override
+	public boolean deleteNewsPaper(String newsPaperName) {
+		System.out.println("Invoked deleteNewsPaper()");
+		
+		boolean newsPaper = this.newsPaperDAO.deleteNewsPaper(newsPaperName);
+		
+		return newsPaper;
+	}
+
 	/*
 	 * @Override public boolean validateNewsPaperLanguage(String language) {
 	 * 
-	 * System.out.println("Invoked validateNewsPaperLanguage()"); boolean flag =
+	 * System.out.println("Invoked validateNewsPaperLanguage()");
+	 *  boolean flag =
 	 * false; if (!language.isEmpty() && language != null) { flag = true; return
 	 * flag; } else { flag = false; System.out.println("Invalid Language"); return
 	 * flag; }

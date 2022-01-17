@@ -9,18 +9,16 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @Table(name = "newspaper_table")
 @NamedQueries({
 		@NamedQuery(name = "NewsPaperEntity.getNewsPaperEntityByName", query = "from NewsPaperEntity where newsPaperName=:Name"),
-		@NamedQuery(name = "NewsPaperEntity.getNewsPaperEntityByLanguage", query = "from NewsPaperEntity where language=:LANGUAGE") })
+		@NamedQuery(name = "NewsPaperEntity.getNewsPaperEntityByLanguage", query = "from NewsPaperEntity where language=:LANGUAGE"),
+		@NamedQuery(name="getAllNewsPaper",query="from NewsPaperEntity"),
+		@NamedQuery(name="deleteNewsPaper",query="from NewsPaperEntity where newsPaperName=:name")
+})
 /*@NoArgsConstructor
 @AllArgsConstructor
 @Setter

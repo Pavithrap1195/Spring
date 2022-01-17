@@ -1,6 +1,7 @@
 package com.xworkz.newspaperApp.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.xworkz.newspaperApp.NewsPaperDTO;
@@ -16,6 +17,10 @@ public interface NewsPaperService {
 	boolean validateNewsPaperName(String newsPaperName);
 
 	NewsPaperDTO getNewsPaperDTO(String newsPaperName);
+	
+	List<Object> getAllNewsPaper();
+	
+	boolean deleteNewsPaper(String newsPaperName);
 
 //	boolean validateNewsPaperLanguage(String language);
 

@@ -1,45 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Welcome</title>
+<title>NewsPaper : Home page</title>
+<%@include file="all_js_css.jsp"%>
 </head>
 <body>
-	<h1>Welcome to NewsPaper App</h1>
-	<h1>${validateMessage}</h1>
+	<div class="container-fluid p-0 m-0">
+		<%@include file="navbar.jsp"%>
+		<br>
+		<div class="card shadow bg-white py-5">
+			<img alt="" class="img-fluid mx-auto" style="max-width: 300px"
+				src="image/news.png">
+			<h1 class="text-primary text-uppercase text-center mt-3">Start
+				Adding your News Paper</h1>
 
-	<form action="submitnewspaper.do">
-		<pre>
-	Name:<input type="text" name="newsPaperName">
-	<p style="color: red" text-align="center">${validateNewsPaperName}</p>
-	
-	Price:<input type="text" name="price"> 
-		<p style="color: red" text-align="center">${validatePrice}</p>
-	
-	Language:<input type="text" name="language">
-		<p style="color: red" text-align="center">${validateLanguage}</p>
-	
-	Noofpages:<input type="text" name="noOfPages">
-		<p style="color: red" text-align="center">${validateNoOfpages}</p>
-	
-	
-	<input type="submit" value="Submit">
-	</pre>
-	</form>
+		</div>
+	</div>
 
-	<%-- <h1>${ searchValidationMessage}</h1>
-	<form action="searchNewsPaper.do">
-		<label>Search</label> <input type="text" name="searchNewsPaper">
-		<input type="submit" value="SearchNewsPaper">
-	</form>
-	<h2>${NOTFOUND }</h2>
-	<ol>
-		<li>${NEWSPAPERNAME }</li>
-		<li>${PRICE}</li>
-		<li>${LANGUAGE}</li>
-		<li>${NOOFPAGES}</li>
-	</ol> --%>
 </body>
 </html>
