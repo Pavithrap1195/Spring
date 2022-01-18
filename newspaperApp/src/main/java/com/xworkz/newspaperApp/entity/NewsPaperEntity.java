@@ -17,7 +17,8 @@ import lombok.Data;
 		@NamedQuery(name = "NewsPaperEntity.getNewsPaperEntityByName", query = "from NewsPaperEntity where newsPaperName=:Name"),
 		@NamedQuery(name = "NewsPaperEntity.getNewsPaperEntityByLanguage", query = "from NewsPaperEntity where language=:LANGUAGE"),
 		@NamedQuery(name="getAllNewsPaper",query="from NewsPaperEntity"),
-		@NamedQuery(name="deleteNewsPaper",query="from NewsPaperEntity where newsPaperName=:name")
+		@NamedQuery(name="deleteNewsPaper",query="from NewsPaperEntity where newsPaperName=:name"),
+		@NamedQuery(name="updateNewsPaperEntity",query="update NewsPaperEntity set newsPaperName=:Name,price=:Price,language=:Language,noOfPages=:NoOfPages where newsPaperId=:Id")
 })
 /*@NoArgsConstructor
 @AllArgsConstructor

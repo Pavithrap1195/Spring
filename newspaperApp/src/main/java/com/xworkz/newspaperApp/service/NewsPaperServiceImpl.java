@@ -31,7 +31,7 @@ public class NewsPaperServiceImpl implements NewsPaperService {
 		System.out.println("Invoked validateNewsPaperDTO()");
 		boolean flag = false;
 		if (newsPaperDTO.getNewsPaperName() != null && !newsPaperDTO.getNewsPaperName().isEmpty()) {
-			flag = true;
+			flag = true;	
 		} else {
 			flag = false;
 			System.out.println("Invalid NewsPaperName");
@@ -131,17 +131,21 @@ public class NewsPaperServiceImpl implements NewsPaperService {
 	@Override
 	public boolean deleteNewsPaper(String newsPaperName) {
 		System.out.println("Invoked deleteNewsPaper()");
-		
 		boolean newsPaper = this.newsPaperDAO.deleteNewsPaper(newsPaperName);
-		
 		return newsPaper;
+	}
+	
+	@Override
+	public boolean updateNewsPaper(NewsPaperDTO newsPaperDTO) {
+		System.out.println("Invoked updateNewsPaper()");
+		boolean paperEntity = this.newsPaperDAO.updateNewsPaperEntity(newsPaperDTO);
+		return paperEntity;
 	}
 
 	/*
 	 * @Override public boolean validateNewsPaperLanguage(String language) {
 	 * 
-	 * System.out.println("Invoked validateNewsPaperLanguage()");
-	 *  boolean flag =
+	 * System.out.println("Invoked validateNewsPaperLanguage()"); boolean flag =
 	 * false; if (!language.isEmpty() && language != null) { flag = true; return
 	 * flag; } else { flag = false; System.out.println("Invalid Language"); return
 	 * flag; }

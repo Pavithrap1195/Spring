@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.xworkz.newspaperApp.NewsPaperDTO;
+import com.xworkz.newspaperApp.entity.NewsPaperEntity;
 
 public interface NewsPaperService {
 
@@ -21,6 +22,8 @@ public interface NewsPaperService {
 	List<Object> getAllNewsPaper();
 	
 	boolean deleteNewsPaper(String newsPaperName);
+	
+	boolean updateNewsPaper(NewsPaperDTO newsPaperDTO );
 
 //	boolean validateNewsPaperLanguage(String language);
 

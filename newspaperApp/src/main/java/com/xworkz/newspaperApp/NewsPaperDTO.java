@@ -6,6 +6,7 @@ import lombok.Data;
 		// @ToString
 public class NewsPaperDTO {
 
+	private int newsPaperId;
 	private String newsPaperName;
 	private double price;
 	private String language;

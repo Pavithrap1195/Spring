@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.xworkz.newspaperApp.NewsPaperDTO;
+import com.xworkz.newspaperApp.entity.NewsPaperEntity;
 import com.xworkz.newspaperApp.service.NewsPaperService;
 
 //Handler Methods
@@ -26,15 +27,27 @@ public class NewsPaperController {
 	}
 
 	@RequestMapping("/submitnewspaper.do")
-	public String onSubmitClicked(@ModelAttribute NewsPaperDTO newsPaperDTO, Model model) {
+	public String onSubmitClicked(Model model,@ModelAttribute NewsPaperDTO newsPaperDTO ) {
 		System.out.println("Invoked onSubmitClicked()");
 
 		if (this.newsPaperService.validateNewsPaperDTO(newsPaperDTO)) {
-			boolean isSaved = this.newsPaperService.saveNewsPaperDTO(newsPaperDTO);
-			if (isSaved) {
-				model.addAttribute("validateMessage", "NewsPaper details have been saved successfully...Thank You");
+			if (newsPaperDTO.getNewsPaperId() == 0) {
+				boolean isSaved = this.newsPaperService.saveNewsPaperDTO(newsPaperDTO);
+				if (isSaved) {
+					model.addAttribute("validateMessage", "NewsPaper details have been saved successfully...Thank You");
+				} else {
+					model.addAttribute("validateMessage", "Could not save the data, Try Again..");
+				}
 			} else {
-				model.addAttribute("validateMessage", "Could not save the data, Try Again..");
+				boolean updatedNewsPaper = this.newsPaperService.updateNewsPaper(newsPaperDTO);
+				if (updatedNewsPaper) {
+
+					model.addAttribute("validateMessage", "NewsPaper details updated successfully");
+					return "getAllNewsPaper.do";
+				} else {
+					model.addAttribute("validateMessage", "Could not update the data, Try Again..");
+					return "getAllNewsPaper.do";
+				}
 			}
 		} else {
 			Map<String, String> map = this.newsPaperService.map;
@@ -85,20 +98,28 @@ public class NewsPaperController {
 	public String onClickDeleteNewsPaper(@RequestParam(value = "newsPaperName", required = false) String newsPaperName,
 			Model model) {
 		System.out.println("Invoked onClickDeleteNewsPaper() ");
-//		if (this.newsPaperService.validateNewsPaperName(newsPaperName)) {
+		boolean result = this.newsPaperService.validateNewsPaperName(newsPaperName);
+		if (result) {
 			boolean isDeleted = this.newsPaperService.deleteNewsPaper(newsPaperName);
 			if (isDeleted) {
 				model.addAttribute("validateDeleteMessage", "NewsPaper details deleted successfully...Thank You");
 			} else {
-				model.addAttribute("validateDeleteMessage", "Could not delete the data, Try Again..");
+				model.addAttribute("validateDeleteMessage", "Data is not available..");
 			}
-		/*} else {
-			Map<String, String> map = this.newsPaperService.map;
-			model.addAttribute("validateNewsPaperName", map.get("NEWSPAPERNAME"));
+		} else {
+			model.addAttribute("validateDeleteMessage", "Enter valid newsPaperName");
 		}
-*/
 		return "/delete.jsp";
 
+	}
+
+	@RequestMapping("/updateNewsPaper.do")
+	public String onClickUpdateNewsPaper(@RequestParam("newsPaperName") String newsPaperName, Model model) {
+		System.out.println("Invoked onClickUpdateNewsPaper()");
+		NewsPaperDTO newsPaperDTO = this.newsPaperService.getNewsPaperDTO(newsPaperName);
+		System.out.println("newsPaperDTO:-- " + newsPaperDTO);
+		model.addAttribute("newspaper", newsPaperDTO);
+		return "/update.jsp";
 	}
 
 	/*

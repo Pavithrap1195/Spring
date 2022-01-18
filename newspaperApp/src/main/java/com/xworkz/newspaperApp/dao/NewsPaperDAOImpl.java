@@ -7,9 +7,9 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+import com.xworkz.newspaperApp.NewsPaperDTO;
 import com.xworkz.newspaperApp.entity.NewsPaperEntity;
 
 //Hibernate code to access database
@@ -26,6 +26,7 @@ public class NewsPaperDAOImpl implements NewsPaperDAO {
 		try {
 			session = factory.openSession();
 			session.beginTransaction();
+//			session.saveOrUpdate(newsPaperEntity);
 			session.save(newsPaperEntity);
 			session.getTransaction().commit();
 			System.out.println("NewsPaperEntity Saved Successfully");
@@ -112,12 +113,45 @@ public class NewsPaperDAOImpl implements NewsPaperDAO {
 			query.setParameter("name", newsPaperName);
 			NewsPaperEntity object = (NewsPaperEntity) query.uniqueResult();
 			System.out.println("Found newspaper:-" + object);
-			session.beginTransaction();
-			session.delete(object);
-			session.getTransaction().commit();
-			return true;
+			if (object != null) {
+				session.beginTransaction();
+				session.delete(object);
+				session.getTransaction().commit();
+				return true;
+			} else {
+				return false;
+			}
+		} catch (HibernateException e) {
+			session.getTransaction().rollback();
+		} finally {
+			if (session != null) {
+				session.close();
+				System.out.println("Session is closed");
+			} else {
+				System.out.println("Session is not closed");
+			}
 		}
-		catch (HibernateException e) {
+		return false;
+	}
+
+	@Override
+	public boolean updateNewsPaperEntity(NewsPaperDTO newsPaperDTO) {
+		System.out.println("Invoked updateNewsPaperEntity()");
+		Session session = null;
+		try {
+			session = factory.openSession();
+			session.beginTransaction();
+			Query query = session.getNamedQuery("updateNewsPaperEntity");
+			query.setParameter("Name", newsPaperDTO.getNewsPaperName());
+			query.setParameter("Price", newsPaperDTO.getPrice());
+			query.setParameter("Language", newsPaperDTO.getLanguage());
+			query.setParameter("NoOfPages", newsPaperDTO.getNoOfPages());
+			query.setParameter("Id", newsPaperDTO.getNewsPaperId());
+			int updated = query.executeUpdate();
+			session.getTransaction().commit();
+			System.out.println("Updated:- " + updated);
+			return true;
+		} catch (HibernateException e) {
 			session.getTransaction().rollback();
 		} finally {
 			if (session != null) {

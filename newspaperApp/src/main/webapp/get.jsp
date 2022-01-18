@@ -21,13 +21,14 @@
 		<div>
 			<a href="getAllNewsPaper.do">View List Of Newspaper</a>
 			<c:forEach items="${ListOfNewsPaper}" var="newspaperObject">
-				<table class="table table-dark">
+				<table class="table table-light">
 					<thead>
 						<tr>
 							<th scope="col">NewsPaperName</th>
 							<th scope="col">Price</th>
 							<th scope="col">Language</th>
 							<th scope="col">NoOfPages</th>
+							<th scope="col">Edit</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -36,6 +37,7 @@
 							<td>${newspaperObject.price }</td>
 							<td>${newspaperObject.language }</td>
 							<td>${newspaperObject.noOfPages }</td>
+							<td><a class="btn btn-info" href="updateNewsPaper.do?newsPaperName=${newspaperObject.newsPaperName }">Edit</a></td>
 						</tr>
 					</tbody>
 				</table>
